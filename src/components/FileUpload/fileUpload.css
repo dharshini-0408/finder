@@ -1,0 +1,139 @@
+.dropzone {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: 0;
+  padding: var(--space-6) var(--space-5);
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.02);
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.dropzone:hover,
+.dropzone:focus-within,
+.dropzone--active {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.dropzone:hover .corners::before,
+.dropzone:hover .corners::after,
+.dropzone--active .corners::before,
+.dropzone--active .corners::after {
+  width: 56px;
+  height: 56px;
+}
+
+.dropzone:focus-within {
+  outline: 1px solid #ffffff;
+  outline-offset: 4px;
+}
+
+/* Keeps dragleave from firing when the pointer crosses child elements. */
+.dropzone > span {
+  pointer-events: none;
+}
+
+.dropzone__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+/* Concentric rings pulsing out from the icon, like a radar ping. */
+.dropzone__target {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.dropzone__radar {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: ping 3s ease-out infinite;
+}
+
+.dropzone__radar::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: inherit;
+  border-radius: inherit;
+  animation: ping 3s ease-out 1.5s infinite;
+}
+
+.dropzone__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 1px solid #ffffff;
+  border-radius: 50%;
+  background: #000000;
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
+  line-height: 1;
+  transition: transform 0.5s var(--ease-out), background 0.3s ease,
+    color 0.3s ease;
+}
+
+.dropzone:hover .dropzone__icon,
+.dropzone--active .dropzone__icon {
+  transform: rotate(90deg);
+  background: #ffffff;
+  color: #000000;
+}
+
+.dropzone__title {
+  position: relative;
+  margin-top: var(--space-4);
+  font-size: clamp(1.25rem, 1.5vw + 0.75rem, 1.75rem);
+  color: #ffffff;
+}
+
+.dropzone__hint {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.dropzone__error {
+  position: relative;
+  margin-top: var(--space-2);
+  padding: 6px 12px;
+  background: #ffffff;
+  color: #000000;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+@keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(5);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 860px) {
+  .dropzone {
+    min-height: 300px;
+  }
+}
